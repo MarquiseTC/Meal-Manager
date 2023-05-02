@@ -28,7 +28,7 @@ export const Register = (props) => {
                         
                     }))
 
-                    navigate("/")
+                    navigate("/login")
                 }
             })
     }
@@ -50,16 +50,16 @@ export const Register = (props) => {
             })
     }
 
-    const updateUser = (evt) => {
-        const copy = {...user}
-        copy[evt.target.id] = evt.target.value
-        setUser(copy)
-    }
+    // const updateUser = (evt) => {
+    //     const copy = {...user}
+    //     copy[evt.target.id] = evt.target.value
+    //     setUser(copy)
+    
 
     return (
         <React.Fragment>
             <h2>Registration Form</h2>
-            <form onSubmit={handleRegister} action={<Link to="/" />}>
+            <form onSubmit={handleRegister} action={<Link to="/login" />}>
                 <Stack spacing={2} direction="row" sx={{marginBottom: 4}}>
                 <TextField 
                     type="text"
@@ -91,7 +91,7 @@ export const Register = (props) => {
                     />
                 </Stack>
                 <Button variant="outlined" color="secondary" type="submit">Complete</Button>
-            <small>Already signed up? <Link to="/">Return to login</Link></small>
+            <small>Already signed up? <Link to="/login">Return to login</Link></small>
             </form>
         </React.Fragment>
     )

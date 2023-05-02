@@ -6,11 +6,12 @@ import { TextField, FormControl, Button } from "@mui/material";
 
 export const Login = () => {
     const [email, set] = useState("")
-    const navigate = useNavigate
+    const navigate = useNavigate()
     
 
     const handleLogin = (e) => {
         e.preventDefault()
+        console.log(email)
 
         return fetch(`http://localhost:8088/users?email=${email}`)
             .then(res => res.json())
@@ -31,7 +32,7 @@ export const Login = () => {
 
     return (
     <React.Fragment>
-        <form autoComplete="off" onSubmit={handleLogin}>
+        <form autoComplete="off" onSubmit={handleLogin} action={<Link to="/meals.${userId}" />}>
             <h2> Meal Manager Login</h2>
             <TextField
             label="Email"

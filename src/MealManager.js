@@ -2,21 +2,40 @@ import { Route, Routes } from "react-router-dom"
 import { Login } from "./components/auth/Login"
 import { Register } from "./components/auth/Register"
 import React from "react"
-import { AppBar, Container, Toolbar } from "@mui/material"
+import { ApplicationViews } from "./components/views/ApplicationViews"
+import { Authorized } from "./components/views/Authorized"
+import { MealForm } from "./components/Meals/MealForm"
+import { MealList } from "./components/Meals/MealList"
 import { ButtonAppBar } from "./components/nav/AppBar"
+
+
+
+
+
+
 
 export const MealManager = () => {
 	return (
-	<React.Fragment>
-		<ButtonAppBar position="relative"><Toolbar>Meal Manager</Toolbar></ButtonAppBar>
-		<Routes>
-		<Route path="/" element={<Login />} />
+		
+			<Routes>	
+		<Route path="/login" element={<Login /> } />
 		<Route path="/register" element={<Register />} />
-			</Routes>	
-<Container>	
+		<Route path="/create" element={<MealForm />} />
+		<Route path="/meals" element={<MealList />} />
+		<Route path="*" element={
+			
+			<Authorized>
+				<>
+					<ButtonAppBar/>
+					<ApplicationViews />
+				</>
+			</Authorized>
+			
+		}/>
+		
+		</Routes>	
 	
-	</Container>
-	</React.Fragment>
+	
 );
 }
 
