@@ -6,14 +6,16 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import { useNavigate} from 'react-router-dom';
 
 export const ButtonAppBar =() => {
+  const navigate =useNavigate()
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
           <IconButton
-            size="large"
+            size="small"
             edge="start"
             color="inherit"
             aria-label="menu"
@@ -22,9 +24,12 @@ export const ButtonAppBar =() => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Home
+          <Button color="secondary" type="submit" onClick={() => navigate("/")}>Home</Button>
+          <Button color="secondary" type="submit" onClick={() => navigate("/login")}>Login</Button>
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button color="secondary" type="submit" onClick={() => navigate("/meals")}>Meal List</Button>
+          <Button color="secondary" type="submit" onClick={() =>{localStorage.removeItem("MM_user"); navigate("/login", {replace:true})}}>Logout</Button>
+                            
         </Toolbar>
       </AppBar>
     </Box>
