@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom"
-import { TextField, FormControl, Button } from "@mui/material";
+import { TextField,  Button } from "@mui/material";
 
 
 export const Login = () => {
@@ -32,7 +32,7 @@ export const Login = () => {
 
     return (
     <React.Fragment>
-        <form autoComplete="off" onSubmit={handleLogin} action={<Link to="/meals.${userId}" />}>
+        <form autoComplete="off" onSubmit={handleLogin} action={<Link to="/meals" />}>
             <h2> Meal Manager Login</h2>
             <TextField
             label="Email"

@@ -14,7 +14,8 @@ export default function MealCard({ meal, deleteMeal}){
           </IconButton>
     }
     title={meal.timeOfDay}
-    subheader={meal.carbCount}
+    header={meal.carbCount}
+    
 
 />
 <CardContent>

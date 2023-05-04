@@ -42,7 +42,7 @@ const navigate = useNavigate()
         })
     }
 
-// Event form is in react bootstrap formatting
+
     return (
         <React.Fragment>
             <form autoComplete="off" onSubmit={handleSaveButtonClick} action={<Link to="/" />}>
