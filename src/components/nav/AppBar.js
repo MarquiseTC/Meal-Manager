@@ -11,7 +11,10 @@ import { useNavigate} from 'react-router-dom';
 import SearchIcon from'@mui/icons-material/Search';
 import{styled, alpha} from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
-
+import PersistentDrawerLeft from '../Meals/MealContainer';
+import { MealDrawer } from '../Meals/MealContainer';
+import { format } from 'date-fns';
+import { MealAvatar } from '../Meals/MealAvatar';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -57,7 +60,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 
-export default function ButtonAppBar () {
+export default function ButtonAppBar ({setResults}) {
   const navigate = useNavigate()
   const localMealUser = localStorage.getItem("MM_user")
     const mealUserObject = JSON.parse(localMealUser) 
@@ -67,13 +70,14 @@ export default function ButtonAppBar () {
     .then((response) => response.json())
     .then((json) => {
       const results = json.filter((meals) => {
-        return value && 
+        return  value &&
         meals && 
         meals.userId ===
         mealUserObject.id &&
         meals.description.toLowerCase().includes(value)
       });
       
+     setResults(results)
      console.log(results)
     }); 
   };
@@ -82,22 +86,12 @@ export default function ButtonAppBar () {
       fetchMeals(value);
   }
   return (
-    <Box sx={{ flexGrow: 2 }}>
-      <AppBar position="sticky" >
+      <AppBar position="static" sx={{ bgcolor: '#5D2B75'}} >
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherent"
-            aria-label="menu"
-            onClick={() => navigate("/")}
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
+            <MealDrawer/>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          <Button color="inherit" type="submit" onClick={() => navigate("/")}>Home</Button>
-          <Button color="inherit" type="submit" onClick={() => navigate("/login")}>Login</Button>
+          <Button color="inherit" type="submit" onClick={() => navigate("/")}>Meal Manager</Button> 
+          Today is { format(new Date(), 'MMMM do Y')}
           </Typography>
           <Search>
             <SearchIconWrapper>
@@ -114,11 +108,10 @@ export default function ButtonAppBar () {
           
           <Button color="inherit" type="submit" onClick={() => navigate("/create")}>Food Form</Button>
           <Button color="inherit" type="submit" onClick={() => navigate("/meals")}>Meal List</Button>
-          <Button color="inherit" type="submit" onClick={() =>{localStorage.removeItem("MM_user"); navigate("/", {replace:true})}}>Logout</Button>
+          <Button color="inherit" type="submit" onClick={() =>{localStorage.removeItem("MM_user"); navigate("/", {replace:true})}}><MealAvatar/></Button>
                           
         </Toolbar>
       </AppBar>
-    </Box>
   );
 }
 

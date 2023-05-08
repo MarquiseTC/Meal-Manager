@@ -1,5 +1,4 @@
-// This file wil display the form that users will use when they wish to fill out new events.
-import { TextField,Button, Stack } from "@mui/material"
+import { TextField,Button, Stack, Box,FormControl, FormLabel, RadioGroup, Radio, FormControlLabel} from "@mui/material"
 import { useState} from "react"
 import { Link, useNavigate } from "react-router-dom"
 import React from "react"
@@ -10,7 +9,8 @@ export const MealForm = () => {
         location:"",
         timeOfDay:"",
         carbCount:"",
-        currentSugar:""
+        currentSugar:"",
+        dateCreated:""
  })
 const navigate = useNavigate()
     const localMealUser = localStorage.getItem("MM_user")
@@ -26,7 +26,8 @@ const navigate = useNavigate()
     location: meal.location,
     timeOfDay: meal.timeOfDay,
     carbCount: meal.carbCount,
-    currentSugar: meal.currentSugar
+    currentSugar: meal.currentSugar,
+    dateCreated: meal.dateCreated
 }
         return fetch(`http://localhost:8088/meals`,
         {
@@ -47,8 +48,26 @@ const navigate = useNavigate()
         <React.Fragment>
             <form autoComplete="off" onSubmit={handleSaveButtonClick} action={<Link to="/" />}>
                 <h2>Meal Form</h2>
-                <Stack spacing={2} direction="column" sx={{marginBottom: 4}}>
-                <TextField
+                <Stack spacing={2} direction="column" sx={{marginBottom: 4}} bgcolor='#00C5FF'>
+                <Box>
+        <FormControl>
+            <FormLabel id='meal-of-the-day-group'>
+                Meal time
+            </FormLabel >
+            <RadioGroup name='meal-of-the-day-group' value={meal.timeOfDay}   aria-labelledby='meal-of-the-day-group'onChange={
+                    (evt) => {
+                        const copy = {...meal}
+                        copy.timeOfDay = evt.target.value
+                        update(copy)}}>
+            <FormControlLabel control={<Radio/>} label='Breakfast' value='Breakfast'/>
+            <FormControlLabel control={<Radio/>} label='Lunch' value='Lunch'/>
+            <FormControlLabel control={<Radio/>} label='Dinner' value='Dinner'/>
+            <FormControlLabel control={<Radio/>} label='Snack' value='Snack'
+                        />
+            </RadioGroup>
+        </FormControl>
+    </Box>      
+                     <TextField
                type="text" 
                variant="outlined" 
                 color="secondary"        
@@ -62,37 +81,8 @@ const navigate = useNavigate()
                         fullWidth
                         required
                      />
-                  </Stack>   
-                   <TextField
-               type="text" 
-               variant="outlined" 
-                color="secondary"        
-                label="Where are you eating?"        
-                onChange={
-                    (evt) => {
-                        const copy = {...meal}
-                        copy.location = evt.target.value
-                        update(copy)}}
-                        value={meal.location}        
-                        fullWidth
-                        required
-                        sx={{mb: 4}}
-                     />
-                     <TextField
-               type="text" 
-               variant="outlined" 
-                color="secondary"        
-                label="What's the occasion?"        
-                onChange={
-                    (evt) => {
-                        const copy = {...meal}
-                        copy.timeOfDay = evt.target.value
-                        update(copy)}}
-                        value={meal.timeOfDay}        
-                        fullWidth
-                        required
-                        sx={{mb: 4}}
-                     />
+                  
+                
                      <TextField
                type="number" 
                variant="outlined" 
@@ -123,7 +113,23 @@ const navigate = useNavigate()
                         required
                         sx={{mb: 4}}
                      />
+                     <TextField
+               type="text" 
+               variant="outlined" 
+                color="secondary"        
+                label="Where are you eating?"        
+                onChange={
+                    (evt) => {
+                        const copy = {...meal}
+                        copy.location = evt.target.value
+                        update(copy)}}
+                        value={meal.location}        
+                        fullWidth
+                        required
+                        sx={{mb: 4}}
+                     />
                      <Button variant="outlined" color="secondary" type="submit">Save Meal</Button>
+                    </Stack>   
                      </form>
                   
           
