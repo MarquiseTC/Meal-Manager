@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { Container, Grid, Button } from "@mui/material"
 import MealCard from "./MealCard"
+import { BarGraph } from "./Charts"
 
 
 
@@ -72,8 +73,9 @@ return (
             {filteredMeals.map(meal => (
                <Grid item key={meal.Id} xs={12} md={6} lg={4}>
                 <MealCard meal={meal} deleteMeal={deleteMeal}/>
-                </Grid>
+               </Grid>
             ))}
+            
             </Grid>
        </Container> 
 )
