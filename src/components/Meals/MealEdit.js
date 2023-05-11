@@ -1,72 +1,133 @@
-// import { useEffect, useState } from "react"
-// import { useNavigate, useParams } from "react-router-dom"
-// import { getTicketEdit, saveTicketEdit } from "../ApiManager"
-
-// export const TicketEdit = () => {
-//     const [ticket, assignTicket] = useState({
-//         description: "",
-//         emergency: false
-//     })
-//     const { ticketId } = useParams()
-//     const navigate = useNavigate()
-
-//     useEffect(() => {
-//         getTicketEdit(ticketId)
-//             .then((data) => {
-//                 assignTicket(data)
-//             })
-//     }, [ticketId])
-
-//     const handleSaveButtonClick = (event) => {
-//         event.preventDefault()
-
-//         saveTicketEdit
-//             .then(() => {
-//                 navigate("/tickets")
-//             })
-//     }
+import {React,  useEffect, useState, } from "react"
+import { useNavigate, useParams, Link } from "react-router-dom"
+import { TextField,Button, Stack, Box,FormControl, FormLabel, RadioGroup, Radio, FormControlLabel, Container} from "@mui/material"
+import { getMealEdit, saveMealEdit } from "../../MMAPIManager"
 
 
-//     return <form className="ticketForm">
-//         <h2 className="ticketForm__title">Service Ticket</h2>
-//         <fieldset>
-//             <div className="form-group">
-//                 <label htmlFor="description">Description:</label>
-//                 <textarea
-//                     required autoFocus
-//                     type="text"
-//                     style={{
-//                         height: "10rem"
-//                     }}
-//                     className="form-control"
-//                     value={ticket.description}
-//                     onChange={
-//                         (evt) => {
-//                             const copy = { ...ticket }
-//                             copy.description = evt.target.value
-//                             assignTicket(copy)
-//                         }
-//                     }>{ticket.description}</textarea>
-//             </div>
-//         </fieldset>
-//         <fieldset>
-//             <div className="form-group">
-//                 <label htmlFor="name">Emergency:</label>
-//                 <input type="checkbox"
-//                     checked={ticket.emergency}
-//                     onChange={
-//                         (evt) => {
-//                             const copy = { ...ticket }
-//                             copy.emergency = evt.target.checked
-//                             assignTicket(copy)
-//                         }
-//                     } />
-//             </div>
-//         </fieldset>
-//         <button
-//             onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
-//             className="btn btn-primary">
-//             Save Edits
-//         </button>
-//     </form>
-// }
+export const EditMeal = () => {
+    const [meal, mealEdit] = useState({
+        description:"",
+        location:"",
+        timeOfDay:"",
+        carbCount:"",
+        currentSugar:"",
+        dateCreated:""
+    })
+
+    const { mealId}=useParams()
+    const navigate = useNavigate()
+
+    useEffect(() => {
+       getMealEdit(mealId)
+        .then((data) => {
+            mealEdit(data)
+        })
+    },[mealId])
+
+
+    const handleSaveButtonClick = (event) => {
+        event.preventDefault()
+        console.log('work please')
+       
+
+  saveMealEdit(meal)
+    .then(() => {
+        navigate("/meals")
+    })
+    }
+
+    return (
+        <>
+            <Container sx={{bgcolor: 'aqua'}}>
+            <form autoComplete="off"  action={<Link to="/" />}>
+                <h2>Meal Form</h2>
+                <Stack spacing={2} direction="column" sx={{marginBottom: 1}} bgcolor='#00C5FF'>
+                <Box>
+        <FormControl>
+            <FormLabel id='meal-of-the-day-group'>
+                Edit Meal
+            </FormLabel >
+            <RadioGroup name='meal-of-the-day-group' value={meal.timeOfDay}   aria-labelledby='meal-of-the-day-group'
+            onChange={
+                    (evt) => {
+                        const copy = {...meal}
+                        copy.timeOfDay = evt.target.value
+                        mealEdit(copy)}}>
+            <FormControlLabel control={<Radio/>} label='Breakfast' value='Breakfast'/>
+            <FormControlLabel control={<Radio/>} label='Lunch' value='Lunch'/>
+            <FormControlLabel control={<Radio/>} label='Dinner' value='Dinner'/>
+            <FormControlLabel control={<Radio/>} label='Snack' value='Snack'
+                        />
+            </RadioGroup>
+        </FormControl>
+    </Box>      
+                     <TextField
+               type="text" 
+               variant="outlined" 
+                color="secondary"        
+                label="What are you eating?"        
+                onChange={
+                    (evt) => {
+                        const copy = {...meal}
+                        copy.description = evt.target.value
+                        mealEdit(copy)}}
+                        value={meal.description}        
+                        fullWidth
+                        
+                     />
+                  
+                
+                     <TextField
+               type="number" 
+               variant="outlined" 
+                color="secondary"        
+                label="Carb Count?"        
+                onChange={
+                    (evt) => {
+                        const copy = {...meal}
+                        copy.carbCount = evt.target.value
+                        mealEdit(copy)}}
+                        value={meal.carbCount}        
+                        fullWidth
+                        
+                        sx={{mb: 4}}
+                     />
+                     <TextField
+               type="number" 
+               variant="outlined" 
+                color="secondary"        
+                label="Current Sugar?"        
+                onChange={
+                    (evt) => {
+                        const copy = {...meal}
+                        copy.currentSugar = evt.target.value
+                        mealEdit(copy)}}
+                        value={meal.currentSugar}        
+                        fullWidth
+                        
+                        sx={{mb: 4}}
+                     />
+                     <TextField
+               type="text" 
+               variant="outlined" 
+                color="secondary"        
+                label="Where are you eating?"        
+                onChange={
+                    (evt) => {
+                        const copy = {...meal}
+                        copy.location = evt.target.value
+                        mealEdit(copy)}}
+                        value={meal.location}        
+                        fullWidth
+                        
+                        sx={{mb: 4}}
+                     />
+                     <Button variant="outlined" color="secondary" type="submit" onClick={handleSaveButtonClick}>Edit Meal</Button>
+                    </Stack>   
+                     </form>
+                </Container>  
+          
+           
+        </>
+   )
+}

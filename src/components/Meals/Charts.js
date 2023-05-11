@@ -4,8 +4,8 @@ CategoryScale,
 LinearScale,
 Tooltip,
 Legend} from "chart.js";
-
-import { Bar } from "react-chartjs-2";
+import 'chart.js/auto'
+import { Bar, Line, Pie } from "react-chartjs-2";
 ChartJs.register(BarElement,
   CategoryScale,
   LinearScale,
@@ -44,7 +44,7 @@ const options = {
   return (
     <div>
       I wish this shit would work
-    <Bar 
+    <Line 
     style = {
         {padding: '20px',
         width: '80%'}
@@ -53,6 +53,49 @@ const options = {
     }
     data={data}
     options={options}
-    ></Bar>
+    ></Line>
 </div>  )
 }
+
+
+export const PieGraph = () => {
+  const data = {
+    labels: [ 'Mon', 'Tues', 'Wed'],
+    datasets: [
+      {
+        label: '369',
+        data: [3,6,9],
+        backgroundColor: ' aqua',
+        borderColor: 'black',
+        borderWidth: 1,
+      },
+      {
+        label: '333',
+        data: [3,3,3],
+        backgroundColor: ' orange',
+        borderColor: 'black',
+        borderWidth: 1,
+      }
+    ]
+  }
+  
+  const options = {
+  
+  }
+  
+  
+    return (
+      <div>
+        I wish this shit would work
+      <Pie
+      style = {
+          {padding: '20px',
+          width: '80%'}
+        
+  
+      }
+      data={data}
+      options={options}
+      ></Pie>
+  </div>  )
+  }

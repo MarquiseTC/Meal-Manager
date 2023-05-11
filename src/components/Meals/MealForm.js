@@ -1,7 +1,9 @@
-import { TextField,Button, Stack, Box,FormControl, FormLabel, RadioGroup, Radio, FormControlLabel} from "@mui/material"
-import { useState} from "react"
+import { TextField,Button, Stack, Box,FormControl, FormLabel, RadioGroup, Radio, FormControlLabel, Container, ThemeProvider} from "@mui/material"
+import { React, useState} from "react"
 import { Link, useNavigate } from "react-router-dom"
-import React from "react"
+import { ThemeContext } from "styled-components"
+import theme from "../../Theme"
+
 
 export const MealForm = () => {
     const [meal, update] = useState({
@@ -45,10 +47,12 @@ const navigate = useNavigate()
 
 
     return (
-        <React.Fragment>
+        <>
+        <ThemeProvider theme={theme}>
+            <Container >
             <form autoComplete="off" onSubmit={handleSaveButtonClick} action={<Link to="/" />}>
                 <h2>Meal Form</h2>
-                <Stack spacing={2} direction="column" sx={{marginBottom: 4}} bgcolor='#00C5FF'>
+                <Stack spacing={2} direction="column" sx={{marginBottom: 1}} >
                 <Box>
         <FormControl>
             <FormLabel id='meal-of-the-day-group'>
@@ -128,12 +132,27 @@ const navigate = useNavigate()
                         required
                         sx={{mb: 4}}
                      />
+                     <TextField
+               type="date" 
+               variant="outlined" 
+                color="secondary"        
+                label=""        
+                onChange={
+                    (evt) => {
+                        const copy = {...meal}
+                        copy.dateCreated = evt.target.value
+                        update(copy)}}
+                        value={meal.dateCreated}        
+                        fullWidth
+                        required
+                        sx={{mb: 4}}
+                     />
                      <Button variant="outlined" color="secondary" type="submit">Save Meal</Button>
                     </Stack>   
                      </form>
-                  
-          
+                </Container>  
+          </ThemeProvider>
            
-        </React.Fragment>
+        </>
    )
 }

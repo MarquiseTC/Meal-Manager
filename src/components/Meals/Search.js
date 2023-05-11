@@ -1,3 +1,17 @@
+// export const MealSearch = ({setterFunction}) => {
+//     return (
+//         <div>
+//         <input
+//         onChange={(event) => {
+//             setterFunction(event.target.value)
+//         }}
+//          type="text" 
+//          placeholder="Enter meals"
+//           />
+//    </div> )
+// }
+
+
 import React from "react";
 import { MealList } from "./MealList";
 import { MealSearchResults } from "./SearchResults";

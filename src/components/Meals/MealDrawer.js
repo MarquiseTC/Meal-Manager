@@ -1,20 +1,18 @@
-import * as React from 'react';
-import { useState } from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
+
+import { Drawer,Box,Typography,IconButton, List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import { useState } from "react"; 
 import MenuIcon from '@mui/icons-material/Menu';
-import Button from '@mui/material/Button';
-import { useNavigate} from 'react-router-dom';
+import AnalyticsIcon from '@mui/icons-material/Analytics';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import InfoIcon from '@mui/icons-material/Info';
+import { MealList } from "./MealList";
+import { useNavigate } from "react-router-dom";
+import { styled, alpha} from "@mui/material/styles"
+import InputBase from "@mui/material/Input";
 import SearchIcon from'@mui/icons-material/Search';
-import{styled, alpha} from '@mui/material/styles';
-import InputBase from '@mui/material/InputBase';
-import PersistentDrawerLeft from '../Meals/MealContainer';
-import { MealDrawer } from '../Meals/MealContainer';
-import { format } from 'date-fns';
-import { MealAvatar } from '../Meals/MealAvatar';
+import { MealSearch } from "./Search";
+
+
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -60,11 +58,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 
-export default function ButtonAppBar ({setResults}) {
-  const navigate = useNavigate()
+export const MealDrawer = () => {
   const localMealUser = localStorage.getItem("MM_user")
     const mealUserObject = JSON.parse(localMealUser) 
   const [ meals, setMeals] = useState("")
+  const [results, setResults] = useState([])
+
   const fetchMeals = (value) => {
     fetch(`http://localhost:8088/meals`)
     .then((response) => response.json())
@@ -85,15 +84,40 @@ export default function ButtonAppBar ({setResults}) {
       setMeals(value);
       fetchMeals(value);
   }
+  const navigate = useNavigate()
+  const [ open, setOpen]=useState(false)
   return (
-      <AppBar position="static" sx={{ bgcolor: '#5D2B75'}} >
-        <Toolbar>
-            <MealDrawer/>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          <Button color="inherit" type="submit" onClick={() => navigate("/")}>Meal Manager</Button> 
-          Today is { format(new Date(), 'MMMM do Y')}
-          </Typography>
-          <Search>
+    <>
+    <IconButton size='large' edge='start' color="inherit" aria-label="logo" onClick={()=> setOpen(true)}>
+      <MenuIcon>
+
+      </MenuIcon>
+    </IconButton>
+    <Drawer anchor="left" open={open} onClose={()=> setOpen(false)} setResults={setResults}>
+<Box p={2} width='250' textAlign='center' role='presentation'>
+ <Typography variant="h6" component='div'>
+Meal Manager
+ </Typography>
+ <List>
+ <ListItemButton onClick={() => navigate(`/info`)}>
+  <ListItemIcon>
+    <InfoIcon sx={{color: "primary.main"}} />
+  </ListItemIcon>
+  <ListItemText primary="Info"/>
+ </ListItemButton>
+ <ListItemButton onClick={() => navigate(`/graphs`)}>
+  <ListItemIcon>
+    <AnalyticsIcon sx={{color: "primary.main"}} />
+  </ListItemIcon>
+  <ListItemText primary="Graphs"/>
+ </ListItemButton>
+ <ListItemButton onClick={() => navigate(`/favorites`)}>
+  <ListItemIcon>
+    <FavoriteIcon sx={{color: "primary.main"}} />
+  </ListItemIcon>
+  <ListItemText primary="Favorites"/>
+ </ListItemButton>
+ <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -104,14 +128,9 @@ export default function ButtonAppBar ({setResults}) {
               onChange={(e) => handleChange(e.target.value)}
             />
           </Search>  
-          
-          
-          <Button color="inherit" type="submit" onClick={() => navigate("/create")}>Food Form</Button>
-          <Button color="inherit" type="submit" onClick={() => navigate("/meals")}>Meal List</Button>
-          <Button color="inherit" type="submit" onClick={() =>{localStorage.removeItem("MM_user"); navigate("/", {replace:true})}}><MealAvatar/></Button>
-                          
-        </Toolbar>
-      </AppBar>
-  );
+ </List>
+ <MealSearch results={results}/>
+</Box>
+    </Drawer>
+ </> )
 }
-
