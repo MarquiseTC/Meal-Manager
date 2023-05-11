@@ -1,34 +1,43 @@
 import React from "react";
-import { Card, CardHeader, CardContent, IconButton, Typography, ListItem, List } from "@mui/material";
+import { Card, CardHeader, CardContent, IconButton, Typography, ListItem, List, ButtonGroup, ThemeProvider } from "@mui/material";
 import { DeleteOutlined } from "@mui/icons-material";
+import EditIcon from '@mui/icons-material/Edit'
+import { useNavigate } from "react-router-dom";
+import theme from "../../Theme";
 
-export default function MealCard({ meal, deleteMeal}){
+
+export default function MealCard({ meal, deleteMeal }) {
+const navigate = useNavigate()
     return (
         <div>
-<Card elevation={5}>
-    <CardHeader
-    action={
-        <IconButton onClick={() => deleteMeal(meal.id)} >
+            <ThemeProvider theme={theme}>
+
             
-            < DeleteOutlined/>
-          </IconButton>
-    }
-    title={meal.timeOfDay}
-    
-    
+            <Card elevation={20} >
+                <CardHeader
+                    action={
+                        <ButtonGroup>
+                            <IconButton onClick={() => deleteMeal(meal.id)}><DeleteOutlined /> </IconButton>
+                            <IconButton onClick={() => navigate(`/meals/${meal.id}/edit`)}><EditIcon /> </IconButton>
 
-/>
-<CardContent sx={{ bgcolor: '#58adb1'}}   >
-    <List>
-    <ListItem>Meal: {meal.description}</ListItem>
-    <ListItem>Carb Count: {meal.carbCount}</ListItem>
-    <ListItem>Current Sugar: {meal.currentSugar}</ListItem>
-    <ListItem>Eaten at: {meal.location}</ListItem>
-    
-    </List>
-</CardContent>
-</Card>
+                        </ButtonGroup>
+                    }
+                    title={meal.timeOfDay}
 
+
+
+                />
+                <CardContent    >
+                    <List>
+                        <ListItem>Meal: {meal.description}</ListItem>
+                        <ListItem>Carb Count: {meal.carbCount}</ListItem>
+                        <ListItem>Current Sugar: {meal.currentSugar}</ListItem>
+                        <ListItem>Eaten at: {meal.location}</ListItem>
+                    </List>
+    
+                </CardContent>
+            </Card>
+    </ThemeProvider>    
         </div>
     )
 }

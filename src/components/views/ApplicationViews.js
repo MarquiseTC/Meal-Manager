@@ -2,7 +2,10 @@ import { Outlet, Route, Routes } from "react-router-dom"
 import Calendar from "../Meals/Calendar"
 
 import React from "react"
-import { BarGraph } from "../Meals/Charts"
+import { BarGraph, PieGraph } from "../Meals/Charts"
+import { ThemeProvider } from "@mui/material"
+import { themeOptions } from "../../MealManager"
+import Theme from "../../Theme"
 
 
 
@@ -14,13 +17,12 @@ import { BarGraph } from "../Meals/Charts"
 
 export const ApplicationViews = () => {
 	return (
-	
+	<ThemeProvider theme={Theme}>
 		<Routes>
 			<Route path="*" element={
 			<>	
 			<h2>Welcome to your Meal Manager</h2>
 			<Calendar/>
-			<BarGraph/>
 			
 			
 		
@@ -29,7 +31,7 @@ export const ApplicationViews = () => {
 	
 		</Route>
 		</Routes>
-		
+	</ThemeProvider>
 	)
 	 
 
