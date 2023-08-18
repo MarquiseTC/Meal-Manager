@@ -5,7 +5,7 @@ export const MealAvatar = () => {
     return (
         <Stack spacing={4}>
             <Stack direction='row' spacing={1} >
-            <Avatar sx={{ bgcolor: 'success.dark'}}>BW</Avatar>
+            <Avatar sx={{ bgcolor: 'success.dark'}}>MM</Avatar>
             </Stack>
 
         </Stack>

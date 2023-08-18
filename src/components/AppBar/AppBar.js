@@ -16,6 +16,7 @@ import { MealDrawer } from '../Meals/MealDrawer';
 import { format } from 'date-fns';
 import { MealAvatar } from '../Meals/MealAvatar';
 import { Avatar, Stack } from '@mui/material';
+import { blueGrey } from '@mui/material/colors';
 
 
 
@@ -28,7 +29,7 @@ export default function ButtonAppBar () {
 
  
   return (
-      <AppBar  sx={{ minHeight: ".1rem"}}  position="fixed" >
+      <AppBar  color='primary' sx={{ minHeight: ".1rem" }}  position="fixed" >
         <Toolbar>
             <MealDrawer/>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>

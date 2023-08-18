@@ -111,7 +111,7 @@ Meal Manager
   </ListItemIcon>
   <ListItemText primary="Graphs"/>
  </ListItemButton>
- <ListItemButton onClick={() => navigate(`/favorites`)}>
+ {/* <ListItemButton onClick={() => navigate(`/favorites`)}>
   <ListItemIcon>
     <FavoriteIcon sx={{color: "primary.main"}} />
   </ListItemIcon>
@@ -127,7 +127,7 @@ Meal Manager
               value={meals}
               onChange={(e) => handleChange(e.target.value)}
             />
-          </Search>  
+          </Search>   */}
  </List>
  <MealSearch results={results}/>
 </Box>

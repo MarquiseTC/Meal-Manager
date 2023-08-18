@@ -1,7 +1,8 @@
 import {React,  useEffect, useState, } from "react"
 import { useNavigate, useParams, Link } from "react-router-dom"
-import { TextField,Button, Stack, Box,FormControl, FormLabel, RadioGroup, Radio, FormControlLabel, Container} from "@mui/material"
+import { TextField,Button, Stack, Box,FormControl, FormLabel, RadioGroup, Radio, FormControlLabel, Container, Checkbox, ThemeProvider} from "@mui/material"
 import { getMealEdit, saveMealEdit } from "../../MMAPIManager"
+import Theme from "../../Theme"
 
 
 export const EditMeal = () => {
@@ -11,7 +12,8 @@ export const EditMeal = () => {
         timeOfDay:"",
         carbCount:"",
         currentSugar:"",
-        dateCreated:""
+        dateCreated:"",
+        favorite: false
     })
 
     const { mealId}=useParams()
@@ -38,10 +40,11 @@ export const EditMeal = () => {
 
     return (
         <>
-            <Container sx={{bgcolor: 'aqua'}}>
+        <ThemeProvider theme={Theme}>
+            <Container >
             <form autoComplete="off"  action={<Link to="/" />}>
                 <h2>Meal Form</h2>
-                <Stack spacing={2} direction="column" sx={{marginBottom: 1}} bgcolor='#00C5FF'>
+                <Stack spacing={2} direction="column" sx={{marginBottom: 1}} >
                 <Box>
         <FormControl>
             <FormLabel id='meal-of-the-day-group'>
@@ -122,11 +125,27 @@ export const EditMeal = () => {
                         
                         sx={{mb: 4}}
                      />
+                     <Box>
+                <Box>
+                    <FormControlLabel label='Favorite' 
+                    control={<Checkbox/>}
+                    onChange={
+                        (evt) => {
+                            const copy = {...meal}
+                            copy.favorite = evt.target.checked
+                            mealEdit(copy)}}
+                            value={meal.favorite}        
+                            fullWidth
+                            
+                            sx={{mb: 4}}
+                    />
+                    </Box>
+            </Box>
                      <Button variant="outlined" color="secondary" type="submit" onClick={handleSaveButtonClick}>Edit Meal</Button>
                     </Stack>   
                      </form>
                 </Container>  
-          
+          </ThemeProvider>
            
         </>
    )
