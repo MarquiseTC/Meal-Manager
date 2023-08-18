@@ -1,7 +1,19 @@
+import { useState } from "react";
+
 export const Favorite = () =>{
+    const [favorite, setFavorite] =useState(false)
+    const localMealUser = localStorage.getItem("MM_user")
+     const mealUserObject = JSON.parse(localMealUser) 
+     
+
+
+
+
+
     return (
-        <div>
-            I hope this will display favorite cards
+       <div>
+            Favorites coming soon
         </div>
-    )
-}
+    );
+};
+

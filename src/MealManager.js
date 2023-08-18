@@ -39,7 +39,7 @@ const theme = createTheme({
 
 export const MealManager = () => {
 	return (
-	
+	<ThemeProvider theme={theme}>
 			<Container>
 				
 				<ButtonAppBar/>
@@ -68,7 +68,7 @@ export const MealManager = () => {
 		</Routes>
 		
 	</Container>
-	
+	</ThemeProvider>
 );
 }
 

@@ -1,5 +1,5 @@
 import { createTheme, responsiveFontSizes } from "@mui/material"
-import { blue, green, red } from "@mui/material/colors"
+import { blue, green, purple, red, teal } from "@mui/material/colors"
 
 
 
@@ -7,13 +7,13 @@ const theme = createTheme({
 	palette: {
 	  mode: 'light',
 	  primary: {
-		main: blue[900],
+		main: purple[500],
 	  },
 	  secondary: {
-		main: green[500],
+		main: teal[900],
 	  },
 	  background: {
-		default: red[50],
+		default: red[400],
 		paper: '#fcffff',
 	  },
 	},

@@ -34,14 +34,14 @@ export const Login = () => {
     <React.Fragment>
         <form autoComplete="off" onSubmit={handleLogin} action={<Link to="/meals" />}>
             <h2> Meal Manager Login</h2>
-            <TextField
+            <TextField 
             label="Email"
             onChange={evt => set(evt.target.value)}
             required
             variant="outlined"
             color="secondary"
             type="email"
-            sx={{mb:2}}
+            sx={{mb:2}} 
             fullWidth
             value={email}
             />

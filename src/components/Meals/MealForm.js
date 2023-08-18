@@ -1,8 +1,10 @@
-import { TextField,Button, Stack, Box,FormControl, FormLabel, RadioGroup, Radio, FormControlLabel, Container, ThemeProvider} from "@mui/material"
+import { TextField,Button, Stack, Box,FormControl, FormLabel, RadioGroup, Radio, FormControlLabel, Container, ThemeProvider, Checkbox } from "@mui/material"
 import { React, useState} from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { ThemeContext } from "styled-components"
 import theme from "../../Theme"
+import { blue, green, grey } from "@mui/material/colors"
+
 
 
 export const MealForm = () => {
@@ -12,8 +14,10 @@ export const MealForm = () => {
         timeOfDay:"",
         carbCount:"",
         currentSugar:"",
-        dateCreated:""
+        dateCreated:"",
+        favorite: false
  })
+ const [favorite, setFavorite] =useState(false)
 const navigate = useNavigate()
     const localMealUser = localStorage.getItem("MM_user")
     const mealUserObject = JSON.parse(localMealUser) 
@@ -29,7 +33,8 @@ const navigate = useNavigate()
     timeOfDay: meal.timeOfDay,
     carbCount: meal.carbCount,
     currentSugar: meal.currentSugar,
-    dateCreated: meal.dateCreated
+    dateCreated: meal.dateCreated,
+    favorite: meal.favorite
 }
         return fetch(`http://localhost:8088/meals`,
         {
@@ -49,7 +54,7 @@ const navigate = useNavigate()
     return (
         <>
         <ThemeProvider theme={theme}>
-            <Container >
+            <Container sx={{bgcolor:grey[200]}}>
             <form autoComplete="off" onSubmit={handleSaveButtonClick} action={<Link to="/" />}>
                 <h2>Meal Form</h2>
                 <Stack spacing={2} direction="column" sx={{marginBottom: 1}} >
@@ -58,7 +63,7 @@ const navigate = useNavigate()
             <FormLabel id='meal-of-the-day-group'>
                 Meal time
             </FormLabel >
-            <RadioGroup name='meal-of-the-day-group' value={meal.timeOfDay}   aria-labelledby='meal-of-the-day-group'onChange={
+            <RadioGroup name='meal-of-the-day-group' value={meal.timeOfDay}  aria-labelledby='meal-of-the-day-group'onChange={
                     (evt) => {
                         const copy = {...meal}
                         copy.timeOfDay = evt.target.value
@@ -147,6 +152,24 @@ const navigate = useNavigate()
                         required
                         sx={{mb: 4}}
                      />
+            {/* <Box>
+                <Box>
+                    <FormControlLabel label='Favorite' 
+                    control={<Checkbox checked={favorite}/>}
+                    onChange={
+                        (evt) => {
+                            const copy = {...meal}
+                            copy.favorite = evt.target.checked
+                            update(copy)}}
+                            value={meal.favorite}        
+                            fullWidth
+                            
+                            sx={{mb: 4}}
+                    />
+                    </Box>
+            </Box> */}
+
+
                      <Button variant="outlined" color="secondary" type="submit">Save Meal</Button>
                     </Stack>   
                      </form>
